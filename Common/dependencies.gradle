@@ -1,0 +1,24 @@
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.5.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'com.google.android.material:material:1.3.0'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // dagger
+    api "com.google.dagger:dagger:$dependenciesVer.dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dependenciesVer.dagger_version"
+
+
+    // livedata
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$dependenciesVer.lifecycle_version"
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$dependenciesVer.lifecycle_version"
+
+    //retrofit
+    api 'com.squareup.retrofit2:retrofit:' + dependenciesVer.retrofit_version
+    api 'com.squareup.retrofit2:converter-gson:' + dependenciesVer.retrofit_version
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+}

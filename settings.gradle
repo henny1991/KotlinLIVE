@@ -1,0 +1,4 @@
+rootProject.name = "KotlinLIVE"
+include ':app'
+include ':ScreenRecorder'
+include ':Common'

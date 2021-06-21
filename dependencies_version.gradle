@@ -1,0 +1,7 @@
+ext{
+    dependenciesVer = [
+            dagger_version: "2.37",
+            lifecycle_version: "2.3.1",
+            retrofit_version: "2.9.0",
+    ]
+}
