@@ -7,8 +7,6 @@
     tools:context=".ui.MainActivity">
 
 
-
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -43,10 +41,13 @@
         android:text="test"
         android:onClick="onTest"/>
 
-    <FrameLayout
-        android:id="@+id/container"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="0"
         app:layout_constraintStart_toEndOf="@+id/next" />

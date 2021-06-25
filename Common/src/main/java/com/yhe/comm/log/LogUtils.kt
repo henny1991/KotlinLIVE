@@ -12,4 +12,8 @@ object LogUtils {
         Log.e(LogContants.TAG, "[$tag] $msg");
     }
 
+    fun e(tag: String, msg: String, t: Throwable){
+        Log.e(LogContants.TAG, "[$tag] $msg ${t.message}");
+    }
+
 }

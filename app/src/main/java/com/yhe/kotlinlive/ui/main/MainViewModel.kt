@@ -1,27 +1,36 @@
 package com.yhe.kotlinlive.ui.main
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.google.gson.JsonObject
 import com.yhe.comm.log.LogUtils
-import com.yhe.kotlinlive.data.main.TollsRepository
+import com.yhe.kotlinlive.data.main.StockRepository
+import com.yhe.kotlinlive.data.main.StockRequestCallBack
 import javax.inject.Inject
 
 private val TAG = MainViewModel::class.simpleName!!
-class MainViewModel(private var tollsRepository: TollsRepository) : ViewModel() {
+class MainViewModel(private var stockRepository: StockRepository) : ViewModel() {
 
-    fun loadToll(){
-        LogUtils.i(TAG, "loadToll")
-        tollsRepository.getTolls(object: TollsRequestCallBack{
-            override fun onResponse(jsonObject: JsonObject?) {
-                LogUtils.i(TAG, "onResponse: $jsonObject")
-            }
+    var stockCode = ObservableField<String>();
 
-            override fun onFail(e: Throwable) {
-                LogUtils.e(TAG, "onResponse: ${e.message}")
-            }
-        });
+    fun queryStock(){
+        stockCode.get()?.let {
+            LogUtils.i(TAG, "queryStock: $it")
+            stockRepository.getStock(it, object: StockRequestCallBack {
+                override fun onResponse(jsonObject: JsonObject?) {
+                    val body = jsonObject!!.get("body").toString()
+                    LogUtils.i(TAG, "onResponse: $body")
+                }
+
+                override fun onFail(e: Throwable) {
+                    e.printStackTrace()
+                    LogUtils.e(TAG, "onFail: ${e.message}")
+                }
+            });
+        }
+
     }
 
     override fun onCleared() {
@@ -35,17 +44,11 @@ class MainViewModel(private var tollsRepository: TollsRepository) : ViewModel() 
     }
 }
 
-class VModelFactory @Inject constructor(private var tollsRepository: TollsRepository): ViewModelProvider.Factory{
+class VModelFactory @Inject constructor(private var stockRepository: StockRepository): ViewModelProvider.Factory{
 
     override fun <T : ViewModel?> create(p0: Class<T>): T {
-        return MainViewModel(tollsRepository) as T
+        return MainViewModel(stockRepository) as T
     }
 
 }
 
-interface TollsRequestCallBack{
-
-    fun onResponse(jsonObject: JsonObject?)
-
-    fun onFail(e: Throwable)
-}
